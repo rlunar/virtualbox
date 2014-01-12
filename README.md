@@ -36,8 +36,8 @@ A few of the action and scripts assume your shared folder will be `/media/sf_Cod
 
 **Note:** On Windows, you may use the same ports for both host and guest. This screenshots shows the Mac configuration where higher ports must be used on the host.
 
-![Port Forwarding Setup](http://d.pr/i/vHQH+)
+![Port Forwarding Setup](http://i.imgur.com/iTeohFC.png)
 
 ## Shared Folder
 
-![Shared Folder Setup](http://d.pr/i/x4oG+)
+![Shared Folder Setup](http://i.imgur.com/2UqPpHB.png)
