@@ -67,6 +67,21 @@ ssh-keygen -f id_rsa -t rsa -N ''
 cd ~/.ssh
 wget https://raw2.github.com/taylorotwell/virtualbox/master/authorized_keys
 
+# Install Git Subtree
+cd ~
+git clone https://github.com/apenwarr/git-subtree
+cd ~/git-subtree
+sudo sh install.sh
+cd ~
+rm -rf git-subtree/
+
+# Install Git Subsplit
+git clone https://github.com/dflydev/git-subsplit
+cd ~/git-subsplit
+sudo sh install.sh
+cd ~
+rm -rf git-subsplit/
+
 # Configure & Start Beanstalkd Queue
 sudo sed -i "s/#START=yes/START=yes/" /etc/default/beanstalkd
 sudo /etc/init.d/beanstalkd start
