@@ -24,7 +24,7 @@ sudo apt-get -y install mysql-server
 # Configure Postgres
 sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/9.1/main/postgresql.conf
 echo "host    all             all             10.0.2.2/32               md5" | sudo tee -a /etc/postgresql/9.1/main/pg_hba.conf
-sudo -u postgres psql -c "CREATE ROLE rluna LOGIN UNENCRYPTED PASSWORD 'secret' SUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;"
+sudo -u postgres psql -c "CREATE ROLE rluna LOGIN UNENCRYPTED PASSWORD 's3cr3t4' SUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;"
 sudo -u postgres /usr/bin/createdb --echo --owner=rluna laravel
 sudo service postgresql restart
 
