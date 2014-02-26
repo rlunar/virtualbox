@@ -10,27 +10,27 @@ php5-mysql php5-pgsql php5-gd curl php5-curl memcached php5-memcached libmcrypt4
 openssh-server git vim python2.7-dev
 
 # Download Bash Aliases
-wget -O ~/.bash_aliases https://raw2.github.com/taylorotwell/virtualbox/master/aliases
+wget -O ~/.bash_aliases https://raw2.github.com/rlunar/virtualbox/master/aliases
 
 # Set Apache ServerName
 sudo sed -i "s/#ServerRoot.*/ServerName ubuntu/" /etc/apache2/apache2.conf
 sudo /etc/init.d/apache2 restart
 
 # Install MySQL
-sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password secret'
-sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password secret'
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password s3cr3t4'
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password s3cr3t4'
 sudo apt-get -y install mysql-server
 
 # Configure Postgres
 sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/9.1/main/postgresql.conf
 echo "host    all             all             10.0.2.2/32               md5" | sudo tee -a /etc/postgresql/9.1/main/pg_hba.conf
-sudo -u postgres psql -c "CREATE ROLE taylor LOGIN UNENCRYPTED PASSWORD 'secret' SUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;"
-sudo -u postgres /usr/bin/createdb --echo --owner=taylor laravel
+sudo -u postgres psql -c "CREATE ROLE rluna LOGIN UNENCRYPTED PASSWORD 'secret' SUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;"
+sudo -u postgres /usr/bin/createdb --echo --owner=rluna laravel
 sudo service postgresql restart
 
 # Configure MySQL
 sudo sed -i '/^bind-address/s/bind-address.*=.*/bind-address = 10.0.2.15/' /etc/mysql/my.cnf
-mysql -u root -p mysql -e "GRANT ALL ON *.* TO root@'10.0.2.2' IDENTIFIED BY 'secret';"
+mysql -u root -p mysql -e "GRANT ALL ON *.* TO root@'10.0.2.2' IDENTIFIED BY 's3cr3t4';"
 sudo service mysql restart
 
 # Configure Mcrypt (Ubuntu 13.10)
@@ -66,7 +66,7 @@ ssh-keygen -f id_rsa -t rsa -N ''
 
 # Setup Authorized Keys
 cd ~/.ssh
-wget https://raw2.github.com/taylorotwell/virtualbox/master/authorized_keys
+wget https://raw2.github.com/rlunar/virtualbox/master/authorized_keys
 
 # Install Git Subtree
 cd ~
@@ -94,15 +94,15 @@ sudo pip install python-simple-hipchat
 
 # Install NodeJs
 cd ~
-wget http://nodejs.org/dist/v0.10.24/node-v0.10.24.tar.gz
-tar -xvf node-v0.10.24.tar.gz
-cd node-v0.10.24
+wget http://nodejs.org/dist/v0.10.26/node-v0.10.26.tar.gz
+tar -xvf node-v0.10.26.tar.gz
+cd node-v0.10.26
 ./configure
 make
 sudo make install
 cd ~
-rm ~/node-v0.10.24.tar.gz
-rm -rf ~/node-v0.10.24
+rm ~/node-v0.10.26.tar.gz
+rm -rf ~/node-v0.10.26
 
 # Install Grunt
 sudo npm install -g grunt-cli
@@ -110,20 +110,23 @@ sudo npm install -g grunt-cli
 # Install Forever
 sudo npm install -g forever
 
+# Install Gulp and dependecies
+sudo npm install -g gulp
+
 # Create Scripts Directory
 mkdir ~/Scripts
 mkdir ~/Scripts/PhpInfo
 
 # Download Serve Script
 cd ~/Scripts
-wget https://raw2.github.com/taylorotwell/virtualbox/master/serve.sh
+wget https://raw2.github.com/rlunar/virtualbox/master/serve.sh
 
 # Download Release Scripts
 cd ~/Scripts
-wget https://raw2.github.com/taylorotwell/virtualbox/master/release-scripts/illuminate-split-full.sh
-wget https://raw2.github.com/taylorotwell/virtualbox/master/release-scripts/illuminate-split-heads.sh
-wget https://raw2.github.com/taylorotwell/virtualbox/master/release-scripts/illuminate-split-tags.sh
-wget https://raw2.github.com/taylorotwell/virtualbox/master/release-scripts/illuminate-split-single.sh
+wget https://raw2.github.com/rlunar/virtualbox/master/release-scripts/illuminate-split-full.sh
+wget https://raw2.github.com/rlunar/virtualbox/master/release-scripts/illuminate-split-heads.sh
+wget https://raw2.github.com/rlunar/virtualbox/master/release-scripts/illuminate-split-tags.sh
+wget https://raw2.github.com/rlunar/virtualbox/master/release-scripts/illuminate-split-single.sh
 
 # Build PHP Info Site
 echo "<?php phpinfo();" > ~/Scripts/PhpInfo/index.php
@@ -133,8 +136,8 @@ sudo a2enmod rewrite
 echo "127.0.0.1  info.app" | sudo tee -a /etc/hosts
 vhost="<VirtualHost *:80>
      ServerName info.app
-     DocumentRoot /home/taylor/Scripts/PhpInfo
-     <Directory \"/home/taylor/Scripts/PhpInfo\">
+     DocumentRoot /home/rluna/Scripts/PhpInfo
+     <Directory \"/home/rluna/Scripts/PhpInfo\">
           Order allow,deny
           Allow from all
           Require all granted
@@ -150,8 +153,8 @@ cd ~/Scripts
 git clone https://github.com/ptrofimov/beanstalk_console.git Beansole
 vhost="<VirtualHost *:80>
      ServerName beansole.app
-     DocumentRoot /home/taylor/Scripts/Beansole/public
-     <Directory \"/home/taylor/Scripts/Beansole/public\">
+     DocumentRoot /home/rluna/Scripts/Beansole/public
+     <Directory \"/home/rluna/Scripts/Beansole/public\">
           Order allow,deny
           Allow from all
           Require all granted
@@ -166,7 +169,7 @@ sudo /etc/init.d/apache2 restart
 sudo mount /dev/cdrom /media/cdrom
 sudo sh /media/cdrom/VBoxLinuxAdditions.run
 sudo usermod -aG vboxsf www-data
-sudo usermod -aG vboxsf taylor
+sudo usermod -aG vboxsf rluna
 
 # Final Clean
 cd ~

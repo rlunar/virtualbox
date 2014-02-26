@@ -11,5 +11,5 @@ alias plain='cd /media/sf_Code/Laravel/plain'
 alias framework='cd /media/sf_Code/Laravel/app/vendor/laravel/framework'
 
 function serve() {
-	sudo sh /home/taylor/Scripts/serve.sh $1 $2
+	sudo sh /home/rluna/Scripts/serve.sh $1 $2
 }
