@@ -165,6 +165,11 @@ echo "$vhost" | sudo tee /etc/apache2/sites-available/beansole.app.conf
 sudo a2ensite beansole.app
 sudo /etc/init.d/apache2 restart
 
+# Install Nagios
+sudo apt-get install nagios3 nagios-nrpe-plugin
+# To add a user:
+sudo htpasswd /etc/nagios3/htpasswd.users rluna
+
 # VirtualBox Guest Additions
 sudo mount /dev/cdrom /media/cdrom
 sudo sh /media/cdrom/VBoxLinuxAdditions.run
