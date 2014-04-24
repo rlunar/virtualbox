@@ -31,3 +31,6 @@ curl localhost/index.php
 
 nano /etc/nginx/hhvm.conf
 
+# wget -O setup.sh http://goo.gl/Y5xN6A
+# chmod 777 setup.sh
+# sudo ./setup.sh
